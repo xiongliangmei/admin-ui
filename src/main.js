@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+require('./mock/mock')
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
