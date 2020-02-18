@@ -1,29 +1,10 @@
 <template>
-  <div class="page">
-    <h2>Home Page</h2>
-    <el-button type="primary" @click="testAxios()">测试axios 调用</el-button>
-    <el-button type="primary" @click="testAxios2()">测试axios 调用</el-button>
-  </div>
+  <el-row class="container">
+    <el-col :span="24" class="header">
+      <!--侧边栏目-->
+      <el-col :span="5" class="logo" :class="isCollapse?'logo-collapse-width':'logo-width'">
+        <img :src="this.logo" /> {{isCollapse?sysName:sysName}}
+      </el-col>
+    </el-col>
+  </el-row>
 </template>
-<script>
-import axios from 'axios'
-export default {
-  name: 'Home',
-  methods: {
-    testAxios () {
-      axios.get('localhost:8080/user').then(function (res) {
-        console.log(res.data)
-      }).catch(function (res) {
-        alert(res)
-      })
-    },
-    testAxios2 () {
-      axios.get('localhost:8080/menu').then(function (res) {
-        console.log(res.data)
-      }).catch(function (res) {
-        alert(res)
-      })
-    }
-  }
-}
-</script>

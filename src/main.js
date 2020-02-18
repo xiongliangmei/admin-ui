@@ -5,10 +5,11 @@ import App from './App'
 import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
 import ElementUI from 'element-ui'
-
+import api from './http/index'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-require('./mock/mock')
+require('./mock/index')
+Vue.use(api)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
