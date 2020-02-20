@@ -1,12 +1,12 @@
 <template>
   <div class="menu-bar-container">
     <!--logo-->
-    <div class="logo" :style="{'backgroud-color':themeColor}" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'">
+    <div class="logo" :style="{'background-color':themeColor}" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'">
       <img v-if="collapse" src="@/assets/logo.png"> <div>{{collapse?'':appName}}</div>
     </div>
     <!--导航菜单-->
     <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" @select="handleselect" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'"
-             :collapse="isCollapse" :collapse-transition="false" :unique-opened="true">
+             :collapse="collapse" :collapse-transition="false" :unique-opened="true">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>

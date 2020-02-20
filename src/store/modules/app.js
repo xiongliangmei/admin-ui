@@ -12,11 +12,14 @@ export default {
     }
   },
   mutations: {
+    onCollapse (state) { // 改变状态
+      state.collapse = !state.collapse
+    },
     setThemeColor (state, themeColor) { // 改变主题颜色
       state.oldThemeColor = state.oldThemeColor
       state.themeColor = themeColor
     },
-    menuRouteLoaded( state, menuRouteLoaded) {
+    menuRouteLoaded (state, menuRouteLoaded) {
       state.menuRouteLoaded = menuRouteLoaded
     }
   },
