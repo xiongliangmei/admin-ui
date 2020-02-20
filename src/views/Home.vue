@@ -1,10 +1,31 @@
 <template>
-  <el-row class="container">
-    <el-col :span="24" class="header">
-      <!--侧边栏目-->
-      <el-col :span="5" class="logo" :class="isCollapse?'logo-collapse-width':'logo-width'">
-        <img :src="this.logo" /> {{isCollapse?sysName:sysName}}
-      </el-col>
-    </el-col>
-  </el-row>
+ <div class="container">
+   <!-- 导航菜单栏 -->
+   <nav-bar></nav-bar>
+   <!-- 头部区域 -->
+   <head-bar></head-bar>
+   <!-- 主内容区域 -->
+   <main-content></main-content>
+ </div>
 </template>
+<script>
+import HeadBar from './HeadBar/HeadBar'
+import NavBar from './NavBar/NavBar'
+import MainContent from './MainContent/MainContent'
+export default {
+  components: {
+    HeadBar,
+    NavBar,
+    MainContent
+  }
+}
+</script>
+<style lang="scss">
+.container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+</style>
