@@ -33,6 +33,31 @@
               </el-dropdown-menu>
             </el-dropdown>
         </el-menu-item>
+        <el-menu-item index="3">
+          <!-- 我的私信 -->
+          <el-badge :value="5" :max="99" class="badge" type="success">
+            <li style="color:#fff;" class="fa fa-envelope-o fa-lg"></li>
+          </el-badge>
+          <el-popover ref="popover-message" placement="bottom-end" trigger="click">
+            sdfsdfsdfd
+          </el-popover>
+        </el-menu-item>
+         <el-menu-item index="4">
+          <!-- 系统通知 -->
+          <el-badge :value="4" :max="99" class="badge" type="success">
+            <li style="color:#fff;" class="fa fa-bell-o fa-lg"></li>
+          </el-badge>
+          <el-popover ref="popover-notice" placement="bottom-end" trigger="click">
+            dfssd
+          </el-popover>
+        </el-menu-item>
+        <el-menu-item index="5">
+          <!-- 用户信息 -->
+          <span class="user-info">admin</span>
+          <el-popover ref="popover-personal" placement="bottom-end" trigger="click" :visible-arrow="false">
+            <personal-panel :user="user"></personal-panel>
+          </el-popover>
+        </el-menu-item>
       </el-menu>
     </span>
   </div>
@@ -65,12 +90,6 @@ export default {
     },
     onThemeChange: function (themeColor) {
       this.$store.commit('setThemeColor', themeColor)
-    },
-    // 语言切换
-    changeLanguage (lang) {
-      lang === '' ? 'zh_cn' : lang
-      this.$i18n.locale = lang
-      this.langVisible = false
     },
     handleCommand(command) {
       command === '' ? 'zh_cn' : command
