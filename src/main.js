@@ -7,9 +7,11 @@ import '../theme/index.css'
 import ElementUI from 'element-ui'
 import api from './http/index'
 import store from './store/index'
-import i18n from './i18n'
+import i18n from './i18n/index'
 Vue.config.productionTip = false
+
 Vue.use(ElementUI)
+
 require('./mock/index')
 Vue.use(api)
 /* eslint-disable no-new */
