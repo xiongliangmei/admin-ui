@@ -1,3 +1,5 @@
 <template>
-  <div>dfdsfsdf</div>
+  <div class="page-container">
+    dsfdsf
+  </div>
 </template>

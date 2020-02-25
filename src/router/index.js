@@ -5,7 +5,6 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import api from '../http/api'
 import Cookies from 'js-cookie'
-
 Vue.use(Router)
 
 const router =  new Router({
@@ -14,8 +13,7 @@ const router =  new Router({
       path: '/',
       name: '首页',
       component: Home,
-      children: [
-      ]
+      children: []
     },
     {
       path: '/login',
@@ -37,7 +35,7 @@ router.beforeEach((to, from, next) => {
   let userName = 'admin'
   if (to.path === '/login') {
     // 如果是访问登录界面，如果用户会话信息存在，代表已登录过，跳转到主页
-    if(token) {
+    if (token) {
       next({ path: '/' })
     } else {
       next()
@@ -53,13 +51,16 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
-function addDynamicMenuAndRoutes(userName, to, from){
-     api.menu.findMenuTree().then((res)=>{
+function addDynamicMenuAndRoutes (userName, to, from) {
+     api.menu.findMenuTree().then((res) => {
        // 添加动态路由
        let dynamicRoutes = addDynamicRoutes(res.data)
-       //router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
-       // console.log("dynamicRoutes",dynamicRoutes)
+       router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
+       console.log("dynamicRoutes",dynamicRoutes)
        console.log("router",router)
+       for (let i = 0; i <router.options.routes[0].children ; i++) {
+           console.log(router.options.routes[0].children[i])
+       }
      }).catch(function (e) {
         alert(e)
      })
@@ -72,9 +73,9 @@ function addDynamicRoutes (menuList = [], routes = []) {
      }else if (menuList[i].url  && /\S/.test(menuList[i].url) ){
        menuList[i].url = menuList[i].url.replace(/^\//, '')
        // 创建路由配置
-       var route = {
-         path: menuList[i].url,
-         component: null,
+      var route = {
+        path: menuList[i].url,
+        component: null,
          name: menuList[i].name,
          meta: {
            icon: menuList[i].icon,
@@ -90,7 +91,6 @@ function addDynamicRoutes (menuList = [], routes = []) {
            url += array[i].substring(0,1).toUpperCase() + array[i].substring(1) + '/'
          }
          url = url.substring(0, url.length - 1)
-         console.log("url"+url)
          route['component'] = resolve => require([`@/views/${url}`], resolve)
        } catch (e) {}
        routes.push(route)
