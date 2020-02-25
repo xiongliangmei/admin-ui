@@ -58,9 +58,6 @@ function addDynamicMenuAndRoutes (userName, to, from) {
        router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
        console.log("dynamicRoutes",dynamicRoutes)
        console.log("router",router)
-       for (let i = 0; i <router.options.routes[0].children ; i++) {
-           console.log(router.options.routes[0].children[i])
-       }
      }).catch(function (e) {
         alert(e)
      })
