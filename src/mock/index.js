@@ -1,8 +1,8 @@
 import Mock from 'mockjs'
 import * as login from './modules/login'
-
+import * as menu from './modules/menu'
 fnCreate(login, true)
-
+fnCreate(menu, true)
 function fnCreate (mod, isOpen = true) {
   if (isOpen) {
     for (var key in mod) {
