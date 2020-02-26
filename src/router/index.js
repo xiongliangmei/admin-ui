@@ -5,7 +5,6 @@ import Home from '@/views/Home'
 import Login from '@/views/Login'
 import api from '../http/api'
 import Cookies from 'js-cookie'
-
 Vue.use(Router)
 
 const router =  new Router({
@@ -57,11 +56,14 @@ router.beforeEach((to, from, next) => {
 })
 
 function addDynamicMenuAndRoutes(){
+     if (this.$store.state.app.menuRouteLoaded){
+       console.log("动态菜单和路由已经存在.")
+       return
+     }
      api.menu.findMenuTree().then((res)=>{
        let dynamicRoutes = addDynamicRoutes(res.data)
        router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
        router.addRoutes(router.options.routes);
-       console.log("routers",router)
      }).catch(function (e) {
         alert(e)
      })
