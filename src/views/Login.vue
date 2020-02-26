@@ -39,8 +39,8 @@ export default {
     login () {
       let userInfo = {account: 'admin', password: '123456'}
       this.$api.login.login(userInfo).then(function (res) {
-        // alert(res.data.token)
         Cookies.set('token', res.data.token)
+        sessionStorage.setItem('user',userInfo.account) // 保持登录用户
         router.push('/') // 登录成功，跳转到主页
       }).catch(function (res) {
         alert(res)
