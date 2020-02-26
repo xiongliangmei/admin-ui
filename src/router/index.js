@@ -12,10 +12,9 @@ const router =  new Router({
   routes: [
     {
       path: '/',
-      name: '首页',
+      name: 'home',
       component: Home,
-      children: [
-      ]
+      children:[]
     },
     {
       path: '/login',
@@ -53,13 +52,13 @@ router.beforeEach((to, from, next) => {
     }
   }
 })
-function addDynamicMenuAndRoutes(userName, to, from){
+
+function addDynamicMenuAndRoutes(){
      api.menu.findMenuTree().then((res)=>{
-       // 添加动态路由
        let dynamicRoutes = addDynamicRoutes(res.data)
-       //router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
-       // console.log("dynamicRoutes",dynamicRoutes)
-       console.log("router",router)
+       router.options.routes[0].children = router.options.routes[0].children.concat(dynamicRoutes)
+       router.addRoutes(router.options.routes);
+       console.log("routers",router)
      }).catch(function (e) {
         alert(e)
      })
@@ -90,7 +89,6 @@ function addDynamicRoutes (menuList = [], routes = []) {
            url += array[i].substring(0,1).toUpperCase() + array[i].substring(1) + '/'
          }
          url = url.substring(0, url.length - 1)
-         console.log("url"+url)
          route['component'] = resolve => require([`@/views/${url}`], resolve)
        } catch (e) {}
        routes.push(route)
@@ -99,6 +97,7 @@ function addDynamicRoutes (menuList = [], routes = []) {
   if (temp.length >= 1) {
     addDynamicRoutes(temp, routes)
   }
+  console.log("router",routes)
   return routes
 }
 export default router
