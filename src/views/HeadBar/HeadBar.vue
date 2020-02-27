@@ -1,6 +1,6 @@
 <template>
-  <div class="headbar" :style="{'backgroud':themeColor}"
-   :class="$store.state.app.collapse?'position-collapse-left':'pisition-left'">
+  <div class="headbar" :style="{'background':themeColor}"
+   :class="$store.state.app.collapse?'position-collapse-left':'position-left'">
     <!-- 导航收缩 -->
     <span class="hamburg">
       <el-menu class="el-menu-demo" :background-color="themeColor" text-color="#fff" :active-text-color="themeColor" mode="horizontal">
@@ -15,50 +15,23 @@
         <el-menu-item index="4" @click="openWindow('https://www.cnblogs.com/xifengxiaoma/')">博客</el-menu-item>
       </el-menu>
     </span>
-    <span class="toolbar">
-      <el-menu class="el-menu-demo" :background-color="themeColor" :text-color="themeColor" :active-text-color="themeColor" mode="horizontal">
-        <el-menu-item index="1">
-          <!-- 主题切换 -->
-          <theme-picker class="theme-picker" :default="themeColor" @onThemeChange="onThemeChange"></theme-picker>
-        </el-menu-item>
-          <el-menu-item index="2" >
-          <!-- 语言切换 -->
-            <el-dropdown @command="handleCommand">
-              <span class="el-dropdown-link" style="color: white">
-                语言<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="zh_cn">简体中文</el-dropdown-item>
-                <el-dropdown-item command="en_us">English</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <!-- 我的私信 -->
-          <el-badge :value="5" :max="99" class="badge" type="success">
-            <li style="color:#fff;" class="fa fa-envelope-o fa-lg"></li>
-          </el-badge>
-          <el-popover ref="popover-message" placement="bottom-end" trigger="click">
-            sdfsdfsdfd
-          </el-popover>
-        </el-menu-item>
-         <el-menu-item index="4">
-          <!-- 系统通知 -->
-          <el-badge :value="4" :max="99" class="badge" type="success">
-            <li style="color:#fff;" class="fa fa-bell-o fa-lg"></li>
-          </el-badge>
-          <el-popover ref="popover-notice" placement="bottom-end" trigger="click">
-            dfssd
-          </el-popover>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <!-- 用户信息 -->
-          <span class="user-info">admin</span>
-          <el-popover ref="popover-personal" placement="bottom-end" trigger="click" :visible-arrow="false">
-            <personal-panel :user="user"></personal-panel>
-          </el-popover>
-        </el-menu-item>
-      </el-menu>
+    <span class="tool-bar">
+       <!--主题切换-->
+       <ThemePicker class="theme-picker" :default="themeColor" @onThemeChange="onThemeChange"></ThemePicker>
+       <!--语言切换-->
+       <LangSelector class="lang-selector"></LangSelector>
+       <!--用户信息-->
+        <el-dropdown class="user-info-dropdown" trigger="hover">
+          <span class="el-dropdown-link"><img src="@/assets/user.png" /> {{username}}</span>
+          <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>{{$t("common.myMsg")}}</el-dropdown-item>
+          <el-dropdown-item>{{$t("common.config")}}</el-dropdown-item>
+          <el-dropdown-item divided @click.native="logout">{{$t("common.logout")}}</el-dropdown-item>
+        </el-dropdown-menu>
+        </el-dropdown>
+    </span>
+    <span>
+
     </span>
   </div>
 </template>
@@ -75,7 +48,10 @@ export default {
   },
   data () {
     return {
-      langVisible: false
+      langVisible: false,
+      username: "Louis",
+      userAvatar: "@/assets/user.png",
+      sysName: ""
     }
   },
   computed: {
@@ -94,8 +70,16 @@ export default {
     handleCommand(command) {
       command === '' ? 'zh_cn' : command
       this.$i18n.locale = command
-      this.$message('click on item ' + command);
+      this.$message('换肤成功');
     }
+  },
+  mounted() {
+     this.sysName = 'I like Kitty'
+     let user = sessionStorage.getItem('username')
+     if (user){
+       this.username = user
+       this.userAvatar = require("@/assets/user.png");
+     }
   }
 }
 </script>
@@ -114,8 +98,17 @@ export default {
   .hamburg, .navbar {
     float: left;
   }
-  .toolbar {
+  .tool-bar {
     float: right;
+    .theme-picker {
+      padding-right: 10px;
+    }
+    .lang-selector {
+      padding-right: 10px;
+      font-size: 15px;
+      color: #fff;
+      cursor: pointer;
+    }
   }
   .lang-item {
     font-size: 16px;
@@ -128,8 +121,9 @@ export default {
     font-size: 18px;
     background: #b0d6ce4d;
   }
-  .user-info {
+  .user-info-dropdown {
     font-size: 20px;
+    padding-right: 20px;
     color: #fff;
     cursor: pointer;
     img {

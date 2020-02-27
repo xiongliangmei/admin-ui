@@ -8,6 +8,8 @@ import ElementUI from 'element-ui'
 import api from './http/index'
 import store from './store/index'
 import i18n from './i18n/index'
+import 'font-awesome/css/font-awesome.min.css'
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
