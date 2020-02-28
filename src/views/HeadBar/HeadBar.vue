@@ -22,16 +22,13 @@
        <LangSelector class="lang-selector"></LangSelector>
        <!--用户信息-->
         <el-dropdown class="user-info-dropdown" trigger="hover">
-          <span class="el-dropdown-link"><img src="@/assets/user.png" /> {{username}}</span>
+          <span class="el-dropdown-link"><img :src="this.userAvatar" /> {{username}}</span>
           <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>{{$t("common.myMsg")}}</el-dropdown-item>
           <el-dropdown-item>{{$t("common.config")}}</el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">{{$t("common.logout")}}</el-dropdown-item>
         </el-dropdown-menu>
         </el-dropdown>
-    </span>
-    <span>
-
     </span>
   </div>
 </template>
@@ -50,7 +47,7 @@ export default {
     return {
       langVisible: false,
       username: "Louis",
-      userAvatar: "@/assets/user.png",
+      userAvatar: "http://static.ss-clouddoctor.com/img/20190723/1735045946.png",
       sysName: ""
     }
   },
